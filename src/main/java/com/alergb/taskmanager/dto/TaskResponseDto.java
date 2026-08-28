@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,6 +22,6 @@ public class TaskResponseDto {
     private String description;
     private Boolean completed ;
     private LocalDateTime createdAt;
-    private Set<UserResponseDto> assignedTo;
+    private List<User> assignedTo;
 
 }

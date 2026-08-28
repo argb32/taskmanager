@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+    boolean existsByTitle(String title);
     //SELECT * FROM tasks WHERE completed =:completed
     List<Task> findByCompleted(boolean completed);
 

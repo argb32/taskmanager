@@ -5,6 +5,7 @@ import com.alergb.taskmanager.entity.Task;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -14,6 +15,6 @@ public class UserResponseDto {
     private String name;
     private String email;
     private Set<Role> roles;
-    private Set<Task> tasks;
+    private List<Task> tasks;
     private LocalDateTime createdAt;
 }

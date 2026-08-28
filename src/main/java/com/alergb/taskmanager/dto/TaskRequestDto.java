@@ -19,7 +19,6 @@ public class TaskRequestDto {
     @NotNull
     private Boolean completed ;
 
-    @NotNull
     private Set<Long> assignedToId;
 
 

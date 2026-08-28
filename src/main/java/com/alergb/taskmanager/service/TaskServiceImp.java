@@ -1,8 +1,10 @@
 package com.alergb.taskmanager.service;
 
 import com.alergb.taskmanager.entity.Task;
+import com.alergb.taskmanager.entity.User;
 import com.alergb.taskmanager.exeptions.TaskNotFoundException;
 import com.alergb.taskmanager.repository.TaskRepository;
+import com.alergb.taskmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskServiceImp implements TaskService{
 
+    private final UserService userService;
     private final TaskRepository taskRepository;
 
     public List<Task> getAllTasks(){
@@ -42,6 +45,7 @@ public class TaskServiceImp implements TaskService{
                     task.setTitle(updatedTask.getTitle());
                     task.setDescription(updatedTask.getDescription());
                     task.setCompleted(updatedTask.getCompleted());
+                    task.setAssignedTo(updatedTask.getAssignedTo());
 
                     return taskRepository.save(task);
 
@@ -54,6 +58,14 @@ public class TaskServiceImp implements TaskService{
 
     public List<Task>  findByTitleContainingIgnoreCase (String title){
         return taskRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public void removeUser(Long userId, Task task) {
+        User user = userService.findUserById(userId);
+
+        task.getAssignedTo().remove(user);
+        taskRepository.save(task);
     }
 
 }

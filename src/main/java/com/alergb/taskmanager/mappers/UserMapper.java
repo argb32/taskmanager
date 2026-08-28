@@ -12,7 +12,7 @@ import com.alergb.taskmanager.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,8 +65,8 @@ public class UserMapper {
         return response;
     }
 
-    public List<UserResponseDto> toResponseDtoList(List<User> users){
-        List<UserResponseDto> responseDtoList = new ArrayList<>();
+    public Set<UserResponseDto> toResponseDtoList(List<User> users){
+        Set<UserResponseDto> responseDtoList = new HashSet<>();
         users.forEach(user -> responseDtoList.add(toResponseDto(user)));
 
         return responseDtoList;

@@ -12,4 +12,5 @@ public interface TaskService {
     Task updateTask (Long id, Task updatedTask);
     void deleteTask (Long id);
     List<Task> findByTitleContainingIgnoreCase(String title);
+    void removeUser (Long userId, Task task);
 }

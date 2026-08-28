@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -42,7 +44,8 @@ public class User {
     @ManyToMany(mappedBy = "assignedTo", fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Task> tasks = new HashSet<>();
+    @JsonIgnore
+    private List<Task> tasks = new ArrayList<>();
 
     @PrePersist
     protected void onCreate(){

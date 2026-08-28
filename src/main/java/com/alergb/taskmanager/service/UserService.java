@@ -3,6 +3,7 @@ package com.alergb.taskmanager.service;
 import com.alergb.taskmanager.entity.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     List<User> findAllUsers();

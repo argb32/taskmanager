@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -37,13 +39,13 @@ public class Task {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "assigned_to",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "users_id")
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private Set<User> assignedTo = new HashSet<>();
+    private List<User> assignedTo = new ArrayList<>();
 
     //PrePersist hace que se ejecute este método en la creación del componente
     @PrePersist
