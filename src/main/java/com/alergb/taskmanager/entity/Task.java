@@ -6,9 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity //esta clase representa una entidad (pasa a ser una entidad que Hibernate puede mapear) y quiero guardarla en la base de datos
@@ -35,6 +33,10 @@ public class Task {
     //Además, no queremos que se pueda modificar una vez creado
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Stage stage = Stage.NOT_STARTED;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

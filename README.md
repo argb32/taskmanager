@@ -299,7 +299,31 @@ un Map. Este object será el body de la Response.
 ---
 *CORS*
 ---
-Para poder conectarnos a la api desde el exterior, necesitamos
+Para poder conectarnos a la api desde un navegador, necesitamos
 configurar el cors. Necesitamos especificar un protocolo (http, https), el host
-y el puerto de entrada.
+y el puerto de entrada. CORS no es un mecanismo de autenticación ni una regla que el servidor utilice para bloquear físicamente la conexión.
+
+Es una política que implementa el navegador.
+
+Para una solución sencilla, pero sin seguridad podemos utilizar algo como:
+```java
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+    }
+}
+```
+Pero esto para una app real no tendría sentido, ya que no tiene ningún tupo de seguridad.
+
+Para poder utilizar esto necesitamos añadirle una capa de seguridad con spring-security e incluso 
+configurar el cors directamente dentro de spring security, por lo que dejar
+mvc sería redundante e incluso una mala práctica.
+
+
+
+
+
 

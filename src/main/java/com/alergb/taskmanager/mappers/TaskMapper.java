@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -28,6 +27,7 @@ public class TaskMapper {
         responseDto.setId(task.getId());
         responseDto.setTitle(task.getTitle());
         responseDto.setDescription(task.getDescription());
+        responseDto.setStage(task.getStage());
         responseDto.setCompleted(task.getCompleted());
         responseDto.setCreatedAt(task.getCreatedAt());
         responseDto.setAssignedTo(task.getAssignedTo());
@@ -44,6 +44,7 @@ public class TaskMapper {
 
         entity.setTitle(requestDto.getTitle());
         entity.setDescription(requestDto.getDescription());
+        entity.setStage(requestDto.getStage());
         entity.setCompleted(requestDto.getCompleted());
         entity.setAssignedTo(mapIdsToUsers(requestDto.getAssignedToId()));
 
