@@ -296,5 +296,10 @@ public ResponseEntity<Object> handleTaskNotFoundException(TaskNotFoundException 
 Y debemos crear el método que devolverá una respuesta con un Objeto, 
 el cual debemos llenarlo con los parámetros convenientes utilizando
 un Map. Este object será el body de la Response.
-
+---
+*CORS*
+---
+Para poder conectarnos a la api desde el exterior, necesitamos
+configurar el cors. Necesitamos especificar un protocolo (http, https), el host
+y el puerto de entrada.
 

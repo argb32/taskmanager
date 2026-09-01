@@ -13,6 +13,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenApi(){
         return new OpenAPI()
+
                 .info(new Info()
                         .title("Task Manager")
                         .version("1.0")
