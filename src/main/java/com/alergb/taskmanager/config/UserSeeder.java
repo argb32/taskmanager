@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -33,28 +34,50 @@ public class UserSeeder {
             Role moderatorRole = roleRepository.findByRole("MODERATOR")
                     .orElseThrow(() -> new RuntimeException("MODERATOR role not found"));
 
-            if (!userRepository.existsByEmail("ale@google.com")) {
+            List<User> users = List.of(
+                    createUser("Ale", "ale@google.com", Set.of(userRole, adminRole)),
+                    createUser("Sergio", "sergio@google.com", Set.of(userRole, moderatorRole)),
+                    createUser("Juan", "juan@google.com", Set.of(userRole)),
+                    createUser("María", "maria@google.com", Set.of(userRole)),
+                    createUser("Pedro", "pedro@google.com", Set.of(userRole)),
+                    createUser("Laura", "laura@google.com", Set.of(userRole)),
+                    createUser("Carlos", "carlos@google.com", Set.of(userRole)),
+                    createUser("Ana", "ana@google.com", Set.of(userRole)),
+                    createUser("David", "david@google.com", Set.of(userRole)),
+                    createUser("Lucía", "lucia@google.com", Set.of(userRole)),
+                    createUser("Miguel", "miguel@google.com", Set.of(userRole)),
+                    createUser("Elena", "elena@google.com", Set.of(userRole)),
+                    createUser("Daniel", "daniel@google.com", Set.of(userRole)),
+                    createUser("Sofía", "sofia@google.com", Set.of(userRole)),
+                    createUser("Javier", "javier@google.com", Set.of(userRole)),
+                    createUser("Paula", "paula@google.com", Set.of(userRole)),
+                    createUser("Álvaro", "alvaro@google.com", Set.of(userRole)),
+                    createUser("Claudia", "claudia@google.com", Set.of(userRole)),
+                    createUser("Diego", "diego@google.com", Set.of(userRole)),
+                    createUser("Marta", "marta@google.com", Set.of(userRole)),
+                    createUser("Andrés", "andres@google.com", Set.of(userRole)),
+                    createUser("Irene", "irene@google.com", Set.of(userRole)),
+                    createUser("Mario", "mario@google.com", Set.of(userRole))
+            );
 
-                User ale = new User();
-                ale.setName("ALe");
-                ale.setEmail("ale@google.com");
-                ale.setPassword("password");
-                ale.setRoles(Set.of(userRole, adminRole));
-
-                userRepository.save(ale);
-            }
-
-            if (!userRepository.existsByEmail("sergio@google.com")) {
-
-                User sergio = new User();
-                sergio.setName("Sergio");
-                sergio.setEmail("sergio@google.com");
-                sergio.setPassword("password");
-                sergio.setRoles(Set.of(moderatorRole));
-
-                userRepository.save(sergio);
-            }
+            users.forEach(user -> {
+                if (!userRepository.existsByEmail(user.getEmail())) {
+                    userRepository.save(user);
+                }
+            });
         };
     }
+
+    private User createUser(String name, String email, Set<Role> roles) {
+        User user = new User();
+
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword("password");
+        user.setRoles(roles);
+
+        return user;
+    }
 }
+
 
