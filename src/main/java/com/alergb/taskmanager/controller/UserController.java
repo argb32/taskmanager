@@ -1,5 +1,6 @@
 package com.alergb.taskmanager.controller;
 
+import com.alergb.taskmanager.dto.AvatarResponseDto;
 import com.alergb.taskmanager.dto.UserRequestDto;
 import com.alergb.taskmanager.dto.UserResponseDto;
 import com.alergb.taskmanager.entity.Task;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findById(Long id){
+    public ResponseEntity<UserResponseDto> findById(@PathVariable Long id){
         return ResponseEntity.ok(userMapper.toResponseDto(userService.findUserById(id)));
     }
 
@@ -43,8 +45,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
+//    @PostMapping("/{id}/avatar")
+//    public ResponseEntity<AvatarResponseDto> uploadAvatar(
+//            @PathVariable Long id,
+//            @Valid @RequestParam("avatar") MultipartFile avatar){
+//
+//    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(Long id, @Valid @RequestBody UserRequestDto user){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequestDto user){
         User updatedUser = userService.updateUser(id, userMapper.toEntity(user));
 
         UserResponseDto responseDto = userMapper.toResponseDto(updatedUser);
@@ -52,7 +61,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(Long id){
+    public void deleteUser(@PathVariable Long id){
         List<Task> tasks = userService.findUserById(id).getTasks();
         if (!tasks.isEmpty()){
             tasks.forEach(task -> taskService.removeUser(id, task));

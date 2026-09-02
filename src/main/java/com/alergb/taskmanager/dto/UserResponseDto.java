@@ -17,4 +17,5 @@ public class UserResponseDto {
     private Set<Role> roles;
     private List<Task> tasks;
     private LocalDateTime createdAt;
+    private AvatarResponseDto avatar;
 }
