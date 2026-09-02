@@ -323,7 +323,41 @@ configurar el cors directamente dentro de spring security, por lo que dejar
 mvc sería redundante e incluso una mala práctica.
 
 
+---
+*SUBIDA DE IMÁGENES*
+---
+Cuando Spring recibe un archivo que ha llegado a través de una petición HTTP no devuelve un JSON,
+sino un cuerpo que contiene varias partes:
+```
+multipart/form-data
+│
+├── avatar
+│     ├── filename: avatar.jpg
+│     ├── Content-Type: image/jpeg
+│     └── contenido binario
+│
+└── otros campos...
+```
 
+Spring toma esta información y la devuelve como 
+``` 
+MultipartFile avatar
+```
+Por ello para la petición post no debemos utilizar un request body tradicional con un dto. Se podría
+hacer si el cliente devolviese el byte[] codificado correctamente en JSON,
+pero lo normal suele ser el MultiPartFile.
 
+Para manejar este tipo de dato debemos enviar en el body el MultipartFile
+```java
+@PostMapping("/{id}/avatar")
+public ResponseEntity<AvatarResponseDto> uploadAvatar(
+        @PathVariable Long id,
+        @RequestParam("avatar") MultipartFile avatar) {
+
+    // service...
+
+}
+
+```
 
 

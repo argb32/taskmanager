@@ -23,5 +23,8 @@ public class UserRequestDto {
     @NotNull
     private Set<Long> rolesId;
 
+    private byte[] avatar;
+
+    private String avatarContentType;
 
 }
