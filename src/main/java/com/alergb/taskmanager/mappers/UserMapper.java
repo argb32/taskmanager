@@ -1,7 +1,9 @@
 package com.alergb.taskmanager.mappers;
 
+import com.alergb.taskmanager.dto.AvatarResponseDto;
 import com.alergb.taskmanager.dto.UserRequestDto;
 import com.alergb.taskmanager.dto.UserResponseDto;
+import com.alergb.taskmanager.entity.Avatar;
 import com.alergb.taskmanager.entity.Role;
 import com.alergb.taskmanager.entity.Task;
 import com.alergb.taskmanager.entity.User;
@@ -61,6 +63,14 @@ public class UserMapper {
         response.setTasks(user.getTasks());
         response.setRoles(user.getRoles());
         response.setCreatedAt(user.getCreatedAt());
+
+        Avatar avatar = user.getAvatar();
+
+        AvatarResponseDto avatarResponseDto = new AvatarResponseDto();
+        avatarResponseDto.setId(avatar.getId());
+        avatarResponseDto.setAvatarContentType(avatar.getAvatarContentType());
+
+        response.setAvatar(avatarResponseDto);
 
         return response;
     }

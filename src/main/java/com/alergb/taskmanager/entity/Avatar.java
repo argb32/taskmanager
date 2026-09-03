@@ -16,11 +16,11 @@ public class Avatar {
     private Long id;
 
     @Lob
-    @Column(name = "avatar")
+    @Column(name = "avatar", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private byte[] avatar;
 
-    @Column(name = "avatar_content_type")
+    @Column(name = "avatar_content_type", nullable = false)
     private String avatarContentType;
 }
