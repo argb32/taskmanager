@@ -2,9 +2,11 @@ package com.alergb.taskmanager.controller;
 
 import com.alergb.taskmanager.dto.UserRequestDto;
 import com.alergb.taskmanager.dto.UserResponseDto;
+import com.alergb.taskmanager.entity.Avatar;
 import com.alergb.taskmanager.entity.Task;
 import com.alergb.taskmanager.entity.User;
 import com.alergb.taskmanager.mappers.UserMapper;
+import com.alergb.taskmanager.service.AvatarService;
 import com.alergb.taskmanager.service.TaskService;
 import com.alergb.taskmanager.service.UserService;
 import jakarta.validation.Valid;
@@ -25,6 +27,7 @@ public class UserController {
     private final TaskService taskService;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final AvatarService avatarService;
 
     @GetMapping
     public ResponseEntity<Set<UserResponseDto>> findAllUsers(){
@@ -34,6 +37,11 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id){
         return ResponseEntity.ok(userMapper.toResponseDto(userService.findUserById(id)));
+    }
+
+    @GetMapping("/{id}/avatar")
+    public ResponseEntity<Avatar> getAvatarById(@PathVariable Long id){
+        return ResponseEntity.ok(avatarService.getAvatarById(id));
     }
 
     @PostMapping

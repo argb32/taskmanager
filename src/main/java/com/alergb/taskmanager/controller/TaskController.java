@@ -3,8 +3,10 @@ package com.alergb.taskmanager.controller;
 import com.alergb.taskmanager.dto.AvatarResponseDto;
 import com.alergb.taskmanager.dto.TaskRequestDto;
 import com.alergb.taskmanager.dto.TaskResponseDto;
+import com.alergb.taskmanager.entity.Avatar;
 import com.alergb.taskmanager.entity.Task;
 import com.alergb.taskmanager.mappers.TaskMapper;
+import com.alergb.taskmanager.service.AvatarService;
 import com.alergb.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,6 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
-
     private final TaskMapper taskMapper;
 
     @GetMapping
@@ -57,6 +58,8 @@ public class TaskController {
                 taskMapper.toResponseListDto(
                         taskService.findByTitleContainingIgnoreCase(title)));
     }
+
+
 
     //en los post necesitamos enviar algo, por lo tanto, es necesario un requestbody
     @PostMapping
