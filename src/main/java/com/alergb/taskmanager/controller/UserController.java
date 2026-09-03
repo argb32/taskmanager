@@ -1,6 +1,5 @@
 package com.alergb.taskmanager.controller;
 
-import com.alergb.taskmanager.dto.AvatarResponseDto;
 import com.alergb.taskmanager.dto.UserRequestDto;
 import com.alergb.taskmanager.dto.UserResponseDto;
 import com.alergb.taskmanager.entity.Task;
@@ -45,12 +44,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-//    @PostMapping("/{id}/avatar")
-//    public ResponseEntity<AvatarResponseDto> uploadAvatar(
-//            @PathVariable Long id,
-//            @Valid @RequestParam("avatar") MultipartFile avatar){
-//
-//    }
+    @PostMapping("/{id}/avatar")
+    public ResponseEntity<Void> uploadAvatar(
+            @PathVariable Long id,
+            @RequestParam("avatar") MultipartFile avatar) {
+
+        userService.uploadAvatar(id, avatar);
+        return ResponseEntity.ok().build();
+
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequestDto user){

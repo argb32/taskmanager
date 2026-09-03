@@ -1,5 +1,6 @@
 package com.alergb.taskmanager.controller;
 
+import com.alergb.taskmanager.dto.AvatarResponseDto;
 import com.alergb.taskmanager.dto.TaskRequestDto;
 import com.alergb.taskmanager.dto.TaskResponseDto;
 import com.alergb.taskmanager.entity.Task;
@@ -9,13 +10,17 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
 @RequiredArgsConstructor
+@Transactional
 public class TaskController {
 
     private final TaskService taskService;
@@ -45,9 +50,12 @@ public class TaskController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<TaskResponseDto>> findByTitleContainingIgnoreCase(@RequestParam String title){
+    public ResponseEntity<List<TaskResponseDto>> findByTitleContainingIgnoreCase(
+            @RequestParam String title){
 
-        return ResponseEntity.ok(taskMapper.toResponseListDto(taskService.findByTitleContainingIgnoreCase(title)));
+        return ResponseEntity.ok(
+                taskMapper.toResponseListDto(
+                        taskService.findByTitleContainingIgnoreCase(title)));
     }
 
     //en los post necesitamos enviar algo, por lo tanto, es necesario un requestbody
@@ -61,8 +69,11 @@ public class TaskController {
 //        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponseDto> updateTask (@PathVariable Long id, @Valid @RequestBody TaskRequestDto updatedTaskDto) {
+    public ResponseEntity<TaskResponseDto> updateTask (
+            @PathVariable Long id,
+            @Valid @RequestBody TaskRequestDto updatedTaskDto) {
         Task updatedTask = taskMapper.toEntity(updatedTaskDto);
 
         TaskResponseDto responseTask=  taskMapper.toResponseDto(taskService.updateTask(id, updatedTask));

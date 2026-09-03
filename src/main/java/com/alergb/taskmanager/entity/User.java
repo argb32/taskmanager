@@ -40,12 +40,8 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_avatar",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "avatar_id")
-    )
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 
     @ManyToMany(mappedBy = "assignedTo", fetch = FetchType.LAZY)
